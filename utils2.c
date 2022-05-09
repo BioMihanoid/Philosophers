@@ -48,3 +48,9 @@ void	*life_one_philo(t_philo *philo)
 	philo->st_condition->flag = 1;
 	return (0);
 }
+
+int 	ft_error(void)
+{
+	printf("Error!\n");
+	return (1);
+}

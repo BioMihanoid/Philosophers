@@ -36,10 +36,12 @@ void	init_condition(t_condition *condition, int argc, char **argv)
 		condition->optional_arg = ft_atoi(argv[5]);
 	else
 		condition->optional_arg = 0;
+	condition->forks = NULL;
 	condition->philo = malloc(sizeof(t_philo) *
 			condition->number_of_philosophers);
 	condition->forks = malloc(sizeof(pthread_mutex_t) *
 			condition->number_of_philosophers);
+	condition->ate_meal = 0;
 	ft_bzero(condition->philo, sizeof(t_philo));
 	init_philo(condition);
 }
@@ -79,20 +81,21 @@ void	create_philo(t_condition *condition)
 int main(int argc, char **argv)
 {
 	t_condition	condition;
+	int 		i;
 
+	i = -1;
 	pthread_mutex_init(&condition.print, 0);
 	if (argc < 5 || argc > 6)
-	{
-		printf ("Error");
-		exit(1); //TODO create and replace on ft_error()
-	}
+		return (ft_error());
 	condition.start_meal = get_time();
 	init_condition(&condition, argc, argv);
 	create_philo(&condition);
-
+	pthread_create(&condition.life, 0, &died, &condition);
+	while (++i < condition.number_of_philosophers)
+		pthread_join(condition.philo[i].thread, 0);
+	pthread_join(condition.life, 0);
 	//free(condition.philo);
 	//free(condition.forks);
-	//TODO fix free function
 	return (0);
 }
 

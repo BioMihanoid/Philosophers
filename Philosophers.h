@@ -17,10 +17,12 @@ typedef struct s_condition
 	int 			time_to_sleep;
 	long int		start_meal;
 	int 			optional_arg;
+	int 			ate_meal;
 	int 			flag;
 	pthread_mutex_t	*forks;
 	pthread_mutex_t print;
 	t_philo			*philo;
+	pthread_t		life;
 } t_condition;
 
 typedef struct s_philo
@@ -40,6 +42,8 @@ long int	get_time(void);
 void		ft_bzero(void *s, size_t n);
 void		eat(t_philo *philo);
 void		*life_one_philo(t_philo *philo);
+int		 	ft_error(void);
+void		*died(void *cond);
 void		print_info(long int time, t_philo *philo, char *status);
 
 #endif

@@ -5,8 +5,9 @@ FLAGS = -Wall -Wextra -Werror -MD
 CC = gcc
 
 SRC = 	Philosophers.c	\
-		utils.c			\
-		utils2.c
+		utils1.c		\
+		utils2.c		\
+		utils3.c
 
 HEADER = Philosophers.h
 
