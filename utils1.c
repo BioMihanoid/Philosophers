@@ -55,11 +55,11 @@ int	ft_atoi(const char *str)
 
 long int	get_time(void)
 {
-	struct timeval	tv;;
+	struct timeval	tv;
 	long int		milliseconds;
 
 	gettimeofday(&tv, NULL);
-	milliseconds = tv.tv_sec * 100 + tv.tv_usec / 1000;
+	milliseconds = tv.tv_sec * 1000 + tv.tv_usec / 1000;
 	return (milliseconds);
 }
 

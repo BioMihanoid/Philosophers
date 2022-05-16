@@ -12,8 +12,7 @@ void	init_philo(t_condition *condition)
 		condition->philo[i].right_fork = i + 1;
 		condition->philo[i].count_meals = 0;
 		condition->philo[i].last_time_meals = get_time();
-		condition->philo->st_condition = condition;
-		condition->flag = 0;
+		condition->philo[i].st_condition = condition;
 		if (i + 1 == condition->number_of_philosophers)
 			condition->philo[i].right_fork = 0;
 		pthread_mutex_init(&condition->forks[i], 0);
@@ -42,6 +41,7 @@ void	init_condition(t_condition *condition, int argc, char **argv)
 	condition->forks = malloc(sizeof(pthread_mutex_t) *
 			condition->number_of_philosophers);
 	condition->ate_meal = 0;
+	condition->flag = 0;
 	ft_bzero(condition->philo, sizeof(t_philo));
 	init_philo(condition);
 }
@@ -52,9 +52,10 @@ void	*routine(void *ph)
 
 	philo = ph;
 	if (philo->st_condition->number_of_philosophers == 1)
-		life_one_philo(philo);
+		return(life_one_philo(philo));
 	if (philo->number % 2 == 0)
 		usleep(1600);
+
 	while (philo->st_condition->flag != 1)
 	{
 		eat(philo);
@@ -72,10 +73,8 @@ void	create_philo(t_condition *condition)
 
 	i = -1;
 	while (++i < condition->number_of_philosophers)
-	{
 		pthread_create(&condition->philo[i].thread, 0, &routine,
 					   &condition->philo[i]);
-	}
 }
 
 int main(int argc, char **argv)
@@ -84,15 +83,18 @@ int main(int argc, char **argv)
 	int 		i;
 
 	i = -1;
+
+
 	pthread_mutex_init(&condition.print, 0);
 	if (argc < 5 || argc > 6)
 		return (ft_error());
 	condition.start_meal = get_time();
+
 	init_condition(&condition, argc, argv);
 	create_philo(&condition);
 	pthread_create(&condition.life, 0, &died, &condition);
 	while (++i < condition.number_of_philosophers)
-		pthread_join(condition.philo[i].thread, 0);
+		pthread_join(condition.philo[i].thread, NULL);
 	pthread_join(condition.life, 0);
 	//free(condition.philo);
 	//free(condition.forks);
