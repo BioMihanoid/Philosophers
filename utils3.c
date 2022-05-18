@@ -1,4 +1,23 @@
+/* ************************************************************************** */
+/*                                                                            */
+/*                                                        :::      ::::::::   */
+/*   utils3.c                                           :+:      :+:    :+:   */
+/*                                                    +:+ +:+         +:+     */
+/*   By: gmilan <gmilan@student.21-school.ru>       +#+  +:+       +#+        */
+/*                                                +#+#+#+#+#+   +#+           */
+/*   Created: 2022/05/09 10:50:31 by gmilan            #+#    #+#             */
+/*   Updated: 2022/05/18 17:11:45 by gmilan           ###   ########.fr       */
+/*                                                                            */
+/* ************************************************************************** */
+
 #include "Philosophers.h"
+
+void	*additional_function(t_condition **condition)
+{
+	print_info(get_time(), (*condition)->philo, "died");
+	(*condition)->flag = 1;
+	return (NULL);
+}
 
 void	*died(void *cond)
 {
@@ -9,16 +28,11 @@ void	*died(void *cond)
 	i = -1;
 	while (++i < condition->number_of_philosophers)
 	{
-		printf ("\n%d\n", (get_time() - condition->philo[i].last_time_meals) >
-						  condition->time_to_die);
-		if ((get_time() - condition->philo[i].last_time_meals) >
-		condition->time_to_die)
-		{
-			print_info(get_time(), condition->philo, "died");
-			condition->flag = 1;
-			return (NULL);
-		}
-		if (condition->philo[i].count_meals == condition->optional_arg && condition->optional_arg > 0)
+		if (get_time() - condition->philo[i].last_time_meals
+			> condition->time_to_die)
+			return (additional_function(&condition));
+		if (condition->philo[i].count_meals == condition->optional_arg
+			&& condition->optional_arg > 0)
 			condition->ate_meal++;
 		if (condition->ate_meal == condition->number_of_philosophers)
 		{

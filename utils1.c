@@ -1,3 +1,15 @@
+/* ************************************************************************** */
+/*                                                                            */
+/*                                                        :::      ::::::::   */
+/*   utils1.c                                           :+:      :+:    :+:   */
+/*                                                    +:+ +:+         +:+     */
+/*   By: gmilan <gmilan@student.21-school.ru>       +#+  +:+       +#+        */
+/*                                                +#+#+#+#+#+   +#+           */
+/*   Created: 2022/04/29 18:56:49 by gmilan            #+#    #+#             */
+/*   Updated: 2022/05/18 17:11:45 by gmilan           ###   ########.fr       */
+/*                                                                            */
+/* ************************************************************************** */
+
 #include"Philosophers.h"
 
 static int	ft_isspace(int c)
@@ -62,4 +74,3 @@ long int	get_time(void)
 	milliseconds = tv.tv_sec * 1000 + tv.tv_usec / 1000;
 	return (milliseconds);
 }
-
