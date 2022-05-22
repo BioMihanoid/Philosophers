@@ -1,8 +1,9 @@
 _This is a **21 School/Ecole 42** Project_
 
 # Philosophers
-## I never thought philosophy would be so deadly
+I never thought philosophy would be so deadly
 
+## Description
 This is a project in which I studied the multithreading of the C language on a slightly modified task of philosophers from Dijkstra
 
 ## Project goals
