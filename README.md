@@ -1,10 +1,23 @@
-<div align="center">
-  <h1>
-    Philosophers
-    </br>
-    I never thought philosophy would be so deadly
-   <h1>
-</div>
+_This is a **21 School/Ecole 42** Project_
 
-This project, where in which I studied the basics of threading a process in c.
-You will see how to create threads and you will discover mutexes.
+# Philosophers
+## I never thought philosophy would be so deadly
+
+This is a project in which I studied the multithreading of the C language on a slightly modified task of philosophers from Dijkstra
+
+## Project goals
+
+1. Learn multithreading in C
+2. Learn how to use mutexes and avoid data leaks
+
+## How to compile/to run
+
+You open console in Linux/MacOS and enter the following commands:
+```
+git clone https://github.com/BioMihanoid/Philosophers
+cd Philosophers
+make
+./philo number_of_philosophers time_to_day time_to_eat time_to_sleep number_of_times_each_phlosopher_must_eat
+```
+
+P.S. All words written after ./philo are any values (there are parameter names)
