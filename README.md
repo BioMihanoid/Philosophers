@@ -18,7 +18,7 @@ You open console in Linux/MacOS and enter the following commands:
 git clone https://github.com/BioMihanoid/Philosophers
 cd Philosophers
 make
-./philo number_of_philosophers time_to_day time_to_eat time_to_sleep number_of_times_each_phlosopher_must_eat
+./philo [number_of_philosophers] [time_to_day time_to_eat] [time_to_sleep] [number_of_times_each_phlosopher_must_eat]
 ```
 
 P.S. All words written after ./philo are any values (there are parameter names). number_of_times_each_phlosopher_must_eat - optional parameter
