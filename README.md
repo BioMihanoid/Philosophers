@@ -20,4 +20,4 @@ make
 ./philo number_of_philosophers time_to_day time_to_eat time_to_sleep number_of_times_each_phlosopher_must_eat
 ```
 
-P.S. All words written after ./philo are any values (there are parameter names)
+P.S. All words written after ./philo are any values (there are parameter names). number_of_times_each_phlosopher_must_eat - optional parameter
