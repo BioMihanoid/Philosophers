@@ -9,7 +9,7 @@ This is a project in which I studied the multithreading of the C language on a s
 ## Project goals
 
 1. Learn multithreading in C
-2. Learn how to use mutexes and avoid data leaks
+2. Learn how to use mutexes and avoid datarace
 
 ## How to compile/to run
 
