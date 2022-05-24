@@ -25,6 +25,7 @@ void	init_philo(t_condition *condition)
 		condition->philo[i].count_meals = 0;
 		condition->philo[i].last_time_meals = get_time();
 		condition->philo[i].st_condition = condition;
+		pthread_mutex_init(&condition->philo[i].mutex, 0);
 		if (i + 1 == condition->number_of_philosophers)
 			condition->philo[i].right_fork = 0;
 		pthread_mutex_init(&condition->forks[i], 0);
@@ -55,11 +56,12 @@ int	init_condition(t_condition *condition, int argc, char **argv)
 		return (ft_error(2));
 	condition->ate_meal = 0;
 	condition->flag = 0;
+	pthread_mutex_init(&condition->mutex, 0);
 	ft_bzero(condition->philo, sizeof(t_philo));
 	init_philo(condition);
 	return (1);
 }
-
+//-fsanitize=thread
 void	*routine(void *ph)
 {
 	t_philo	*philo;
@@ -69,13 +71,23 @@ void	*routine(void *ph)
 		return (life_one_philo(philo));
 	if (philo->number % 2 == 0)
 		usleep(1600);
-	while (philo->st_condition->flag != 1)
+	while (1)
 	{
+
+		pthread_mutex_lock(&philo->mutex);
+		if (philo->st_condition->flag == 1)
+		{
+			pthread_mutex_unlock(&philo->mutex);
+			break;
+		}
+		pthread_mutex_unlock(&philo->mutex);
 		eat(philo);
 		print_info (get_time(), philo, "is sleeping");
 		usleep(philo->st_condition->time_to_sleep * 1000);
 		print_info(get_time(), philo, "is thinking");
+		pthread_mutex_lock(&philo->mutex);
 		philo->count_meals++;
+		pthread_mutex_unlock(&philo->mutex);
 	}
 	return (0);
 }

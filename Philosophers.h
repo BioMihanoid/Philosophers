@@ -33,6 +33,7 @@ typedef struct s_condition
 	int				flag;
 	pthread_mutex_t	*forks;
 	pthread_mutex_t	print;
+	pthread_mutex_t	mutex;
 	t_philo			*philo;
 	pthread_t		life;
 }	t_condition;
@@ -45,7 +46,7 @@ typedef struct s_philo
 	int				count_meals;
 	long int		last_time_meals;
 	t_condition		*st_condition;
-	pthread_mutex_t	*mutex;
+	pthread_mutex_t	mutex;
 	pthread_t		thread;
 }	t_philo;
 

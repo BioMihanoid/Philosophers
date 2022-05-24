@@ -30,8 +30,8 @@ void	print_info(long int time, t_philo *philo, char *status)
 {
 	long int	t;
 
-	t = philo->st_condition->start_meal;
 	pthread_mutex_lock(&philo->st_condition->print);
+	t = philo->st_condition->start_meal;
 	if (philo->st_condition->flag != 1)
 		printf("%6ld %3d %s\n", time - t, philo->number, status);
 	pthread_mutex_unlock(&philo->st_condition->print);
@@ -41,7 +41,9 @@ void	eat(t_philo *philo)
 {
 	pthread_mutex_lock(&philo->st_condition->forks[philo->left_fork]);
 	pthread_mutex_lock(&philo->st_condition->forks[philo->right_fork]);
+	pthread_mutex_lock(&philo->mutex);
 	philo->last_time_meals = get_time();
+	pthread_mutex_unlock(&philo->mutex);
 	print_info(get_time(), philo, "has taken a fork");
 	print_info(get_time(), philo, "has taken a fork");
 	print_info(get_time(), philo, "is eating");
